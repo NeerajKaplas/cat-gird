@@ -14,7 +14,7 @@
 
     <script type="text/babel">
         const rootElement = document.getElementById('root')
-        const rowSize = 4;
+        const rowSize = 3;
         const images = [
             "./images/cat_1.png",
             "./images/cat_2.png",
@@ -101,7 +101,6 @@
                     <div id="grid-section" class="w-50 u-text-center u-ib u-v-align-top">
                         <div class="sec-hdr"> CATS GRID</div>
                             {gridImagesIndex.map(item=>{
-                                console.log(item)
                                 if(item === null){
                                     return <div class="grid-item u-ib u-v-align-top">
                                         <div class="curtain"/>

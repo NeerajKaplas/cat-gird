@@ -1,5 +1,5 @@
 var nextIndex = 0;
-var rowSize = 4;
+var rowSize = 3;
 var gridImagesIndex = [];
 $(document).ready(function () {
     attachEvents();
