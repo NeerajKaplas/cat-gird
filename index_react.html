@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>    
+    <title>Cat Grid</title>
+    <link rel="stylesheet" href="style_react.css" />
+    <script type="application/javascript" src="https://unpkg.com/react@16.0.0/umd/react.production.min.js"></script>
+    <script type="application/javascript"
+        src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.production.min.js"></script>
+    <script type="application/javascript" src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const rootElement = document.getElementById('root')
+        const rowSize = 4;
+        const images = [
+            "./images/cat_1.png",
+            "./images/cat_2.png",
+            "./images/cat_3.png",
+            "./images/cat_4.png",
+            "./images/cat_5.png",
+            "./images/cat_6.png",
+            "./images/cat_7.png",
+            "./images/cat_8.png",
+            "./images/cat_9.png",
+            "./images/cat_10.png",
+            "./images/cat_11.png",
+            "./images/cat_12.png"
+        ]
+        const grids = (new Array(images.length)).fill(true);
+        class CatGrid extends React.Component { 
+            constructor(props){
+                super(props);
+                this.state = {
+                    nextIndex : 0
+                }
+                this.gridImagesIndex = (new Array(images.length)).fill(null); 
+            }
+            imageClicked(index){
+                let {nextIndex} = this.state;
+                this.gridImagesIndex[nextIndex] = index;
+                console.log(this.gridImagesIndex);
+                this.setState({nextIndex : nextIndex+1}, ()=>{
+                    if(this.state.nextIndex ==12){
+                        if(this.validate()){
+                            alert("YOU WON");
+                        }else{
+                            alert("YOU LOSE");
+                        }
+                    }
+                });
+            }
+            hasDuplicate(arr) {
+                arr.sort();
+                var check = false;
+
+                for (var i = 1; i < arr.length; i++) {
+                    if (arr[i] == arr[i - 1]) {
+                        check = true;
+                        break
+                    }
+                }
+                return check;
+            }
+            validate() {
+                const {gridImagesIndex} = this;
+                var length = gridImagesIndex.length / rowSize;
+                var check = true;
+                for (var i = 0; i < length; i++) {
+                    var item = gridImagesIndex.slice(i, rowSize);
+                    if (this.hasDuplicate(item.slice())) {
+                        check = false;
+                        break;
+                    }
+                }
+                return check;
+            }
+            render() { 
+                let {gridImagesIndex} = this;
+                return (
+                    <div>
+                    <h1 class="u-text-center"> Cat Grid Game</h1>
+                    <div class="page-content">
+                    
+                        <div id="images-section" class="w-50 u-text-center u-ib u-v-align-top">
+                        <div class="sec-hdr">
+                            Click on cats to fill the grid
+                        </div>
+                        <div class="images-cntr">
+                            {images.map((item, index)=>{
+                                return (<div class="img-item u-ib" >
+                                    <img src={item} data-index={index} onClick={()=>{this.imageClicked(index)}}/>
+                                </div>)
+                            })}
+                        </div>
+                    </div>
+
+
+                    <div id="grid-section" class="w-50 u-text-center u-ib u-v-align-top">
+                        <div class="sec-hdr"> CATS GRID</div>
+                            {gridImagesIndex.map(item=>{
+                                console.log(item)
+                                if(item === null){
+                                    return <div class="grid-item u-ib u-v-align-top">
+                                        <div class="curtain"/>
+                                    </div>
+                                }else{
+                                    return <div class="grid-item u-ib u-v-align-top">
+                                        <img src={images[item]}/>
+                                    </div>
+                                }
+                            })}
+                    </div>
+                </div>
+                </div>
+                );
+            } 
+        }
+    function App(){
+        return(
+            <div>
+                <CatGrid name="@luispagarcia on Dev.to!"/>
+            </div>
+            )
+        }
+
+        ReactDOM.render(
+            <App />,
+            rootElement
+        )
+    </script>
+
+</body>
+
+</html>
