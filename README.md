@@ -9,7 +9,7 @@ open index_react.html in broswer
 ```
 
 
-## For Jquery Code
+## For Jquery Version
 
 ```bash
 open index.html in broswer
